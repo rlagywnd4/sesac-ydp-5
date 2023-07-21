@@ -1,0 +1,28 @@
+img {
+    width: 400px;
+    height: 250px;
+}
+
+#beach1 {
+    transform: skewY(20deg);
+    position: absolute;
+    top: 200px;
+    left: 50px;
+    z-index: 3;
+}
+
+#beach2 {
+    transform: skewY(20deg);
+    position: absolute;
+    top: 180px;
+    left: 350px;
+    z-index: 2;
+}
+
+#beach3 {
+    transform: skewY(20deg);
+    position: absolute;
+    top: 160px;
+    left: 650px;
+    z-index: 1;
+}
