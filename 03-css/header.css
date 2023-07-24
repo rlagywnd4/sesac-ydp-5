@@ -1,0 +1,61 @@
+ul {
+    /* ul태그가 기본적으로 가지고 있는 스타일 제거 */
+    list-style: none;  /* 목록에 생기는 점 제거*/
+    padding: 0;         /* 점이 사라진 부분 제거*/
+    margin: 0;          /* 마진때문에 살짝 낮아진 부분 제거*/
+}
+
+.header1 {
+    background-color: beige;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px; /*양쪽 여백을 위한 패딩*/
+}
+
+.header1 .menus {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.header1 .menus li {
+    margin-left: 20px;
+}
+/* ----------------------------------------- */
+.header2 {
+    padding: 0 10px;
+    background-color: beige;
+}
+.header2 .menus {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+/* ----------------------------------------- */
+.header3 {
+    background-color: beige;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.header3 ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+}
+
+.header3 li {
+    margin-left: 10px;
+}
+/* ----------------------------------------- */
+
+.header4 {
+    display: flex;
+    justify-content: space-between;
+}
