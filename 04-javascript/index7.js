@@ -100,3 +100,31 @@ for (let i = 0; i < 100; i++) {
 }
 
 console.log(sum3);
+
+// 실습 : 합계 구하기
+let sum4 = 0;
+for (let i = 0; i <= 100; i++) {
+  if (i % 2 === 0) {
+    sum4 += i;
+  } else if (i % 5 === 0) {
+    sum4 += i;
+  }
+}
+
+// 실습 : 13의 배수이자 홀수를 찾아보자
+let num3 = Number(prompt('원하는 숫자를 입력하세요.'));
+for (let i = 0; i <= num3; i++) {
+  if (i % 13 === 0 && i % 2 === 1) {
+    console.log(i);
+  }
+}
+
+//실습 : 구구단 만들기
+for (let i = 2; i <= 9; i++) {
+  for (let j = 1; j <= 9; j++) {
+    if (j === 1) {
+      console.log(`===${i} 단==`);
+    }
+    console.log(`${i}x ${j} = ${i * j}`);
+  }
+}
