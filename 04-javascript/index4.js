@@ -102,6 +102,6 @@ result2 = ++num2;
 console.log(result2); // 11
 console.log(num2); // 11
 
+// +=, -= 연산자를 더 자주 씀!
 console.log((num += 1));
 console.log((num2 -= 1));
-console.log(num2); // 11
