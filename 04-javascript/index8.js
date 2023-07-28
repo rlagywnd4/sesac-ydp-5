@@ -179,3 +179,18 @@ console.log(three);
 // 'str'.includes(): true, false 반환 메서드
 const aWord = words.filter((e) => e.includes('a'));
 console.log(aWord);
+
+/////////////////////////////////////////////////////////
+// for in 반복문
+// 객체의 key를 반복할 수 있는 구문
+
+const me = {
+  name: 'hyojung',
+  gender: 'm',
+  hobby: 'sleep',
+};
+for (let key in me) {
+  console.log(key, me[key]); //me.key 안됨 => me배열에 key라는 요소가 없음
+  // key: key
+  // value : me[key]
+}
