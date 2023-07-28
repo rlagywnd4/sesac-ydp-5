@@ -185,7 +185,7 @@ const cat = {
 
 console.log(cat); // object 자체를 출력
 
-// object 의 속성(key)에 접슨하는 방법
+// object 의 속성(key)에 접근하는 방법
 // (1) 점 표기법 (.)
 console.log(cat.name);
 console.log(cat.age);
