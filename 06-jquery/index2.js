@@ -45,7 +45,9 @@ function changeAttrJS() {
   naver.textContent = 'naver';
   naver.href = 'https://www.naver.com/';
 }
-function changeAttrJquery() {}
+function changeAttrJquery() {
+  $('a').attr('href', 'https://www.daum.net');
+}
 
 // text()
 function changeTextJS() {

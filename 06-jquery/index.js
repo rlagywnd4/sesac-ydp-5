@@ -48,7 +48,7 @@ colorsJs.forEach((item) => {
 //   colorsJs.style.color = 'red';
 // });
 
-// jquery li 요소 크릭시 배경 색상 하늘색
+// jquery li 요소 클릭시 배경 색상 하늘색
 colorsJquery.on('click', function () {
   //   console.log($(this));
   $(this).css('background-color', 'skyblue');
