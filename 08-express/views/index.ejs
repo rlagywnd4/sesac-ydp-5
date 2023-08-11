@@ -3,15 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>메인 페이지</title>
+    
+    <%- include('./includes/head', {title: '홈'})%>
   </head>
   <body>
+    <%- include('./includes/header')%>
     <h1>Hello! Express!!</h1>
-    <p>안녕하세요~~~~~~</p>
+    <p>안녕하세요~ <%= userId%>님! 환영합니다~~</p>
+    <!-- 퀴즈) pw도 뷰에서 보여주기! -->
+    <p>당신의 비밀번호는 <%= userPw%>입니다.</div></p>
     <% for(let i =0; i < 5; i++) {%>
     <div><%= i%></div>
     <%}%>
     <a href="/login">로그인</a>
     <a href="/register">회원가입</a>
+
+    
+    <% for (let i =0; i < btns.length; i++) {%>
+      <button type="button" class="btn btn-primary"><%= btns[i]%></button>
+      <%}%>
+      <a href="/sesac">새싹</a>
+
+      <br>
+      <span><%= me.name%></span>
+      <span><%= me.msg%></span>
+
+      <br>
+      <% if (!isLogin) { %>
+        <h4>아직 로그인을 하지 않으셨군요!</h4>
+        <% } else { %>
+        <h4>로그인을 하셨군요!</h4>
+        <%}%>
+
+
+
   </body>
 </html>
