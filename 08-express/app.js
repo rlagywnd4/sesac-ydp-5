@@ -4,7 +4,12 @@ const PORT = 8080;
 
 //express 템플릿 엔진 종류 등록
 app.set('view engine', 'ejs'); //express에서 사용할 템플릿 엔진 종류(ejs) 등록
-app.set('views', './views'); // 템플릿 엔진 파일을 저장할 위치 등록
+// app.set('views', './views'); // 템플릿 엔진 파일을 저장할 위치 등록
+
+// (http://localhost:8080/public/image/dog.jpg) 이렇게 하면 개사진 뜸
+// 파일이름을 가리기 위해서(보안문제) 이렇게 함
+app.use('/views', express.static(__dirname + '/views')); // 템플릿 엔진 파일 저장할 위치 이렇게도 가능
+app.use('/public', express.static(__dirname + '/static')); // 미들웨어 등록
 
 // (임시) 데이터베이스에서 가져온 회원정보
 const idFromDB = 'banana';
