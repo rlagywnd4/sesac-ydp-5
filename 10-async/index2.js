@@ -123,8 +123,8 @@ function mul(n) {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
       const result = n * 2;
-      // resolve(result);
-      reject(new Error('의도적으로 발생시킨 에러!!!!'));
+      resolve(result);
+      // reject(new Error('의도적으로 발생시킨 에러!!!!'));
     }, 700);
   });
 }
