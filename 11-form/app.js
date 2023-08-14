@@ -42,7 +42,7 @@ app.listen(PORT, () => {
   console.log(`${PORT} is open!`);
 });
 
-// 실습 get
+// 실습 get으로 정보받기
 app.get('/getInfo', (req, res) => {
   console.log(req.query, Date());
   res.render('getInfo', { title: 'Get 요청', userInfo: req.query });
