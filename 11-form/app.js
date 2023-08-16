@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
   // ejs_경로: views/ 폴더 내부 ejs 파일의 주소
   // 데이터: 뷰에 넣어줄 정보
   res.render('index', { title: '폼 전송을 연습해보자!' });
+  console.log('-----------------------------------------'); //log를 깔끔하게 보기 위해 추가
 });
 
 // GET '.getForm' => 임의의 메세지 전송
@@ -46,4 +47,15 @@ app.listen(PORT, () => {
 app.get('/getInfo', (req, res) => {
   console.log(req.query, Date());
   res.render('getInfo', { title: 'Get 요청', userInfo: req.query });
+});
+
+//실습 post로 정보받기
+app.get('/postInfo', (req, res) => {
+  console.log(req.query, Date());
+  res.render('postInfo', { userInfo: req.query });
+});
+
+app.post('/postResult', (req, res) => {
+  console.log(req.body, Date());
+  res.render('postResult', { userInfo: req.body });
 });
