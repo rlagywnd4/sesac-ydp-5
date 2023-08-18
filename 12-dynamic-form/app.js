@@ -26,3 +26,24 @@ app.post('/ajax', (req, res) => {
   console.log(req.body);
   res.send(req.body);
 });
+
+app.get('/axios', (req, res) => {
+  console.log(req.query);
+  res.send(req.query);
+  //   res.send({name: req.body.name, gender: req.body.gender, msg: '반가워!' }); 이렇게도 사용가능
+});
+
+app.post('/axios', (req, res) => {
+  console.log(req.body);
+  res.send(req.body);
+});
+
+app.get('/fetch', (req, res) => {
+  console.log(req.query);
+  res.send(req.query);
+});
+
+app.post('/fetch', (req, res) => {
+  console.log(req.body);
+  res.send(req.body);
+});
