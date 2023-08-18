@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- axios cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>POST 폼 실습</h1>
+    <form method="post" name="user">
+      <label for="userId">아이디</label>
+      <input type="text" name="userId" id="userId" required />
+      <br />
+
+      <label for="userPw">비밀번호</label>
+      <input type="text" name="userPw" id="userPw" required />
+      <br />
+
+      <div class="result"></div>
+      <button type="button" onclick="axiosPost()">로그인</button>
+    </form>
+    <script>
+      async function axiosPost() {
+        console.log('axiosPost 함수 호출!');
+
+        const form = document.forms['user'];
+        const data = {
+          userId: form.userId.value,
+          userPw: form.userPw.value,
+        };
+        try {
+          const response = await axios({
+            method: 'post', // 요청 방식 (= form method 속성)
+            url: '/axios', // 요청 경로  (= form action 속성)
+            data: data, // 서버로 보낼 데이터(query string)
+          }); // response: 서버의 응답 결과
+          const { userId, userPw } = data;
+          const { isSuccess } = response.data[1];
+          console.log(isSuccess);
+          let resultBox = document.querySelector('div.result');
+          if (isSuccess) {
+            resultBox.innerText = `${userId}님! 로그인 성공`;
+          } else {
+            resultBox.innerText = '아이디 또는 패스워드 오류';
+          }
+        } catch (error) {
+          console.log('Error!', error);
+          let resultBox = document.querySelector('div.result');
+          resultBox.innerText = 'error 발생! 다시 시도해주세요~';
+        }
+      }
+    </script>
+  </body>
+</html>
