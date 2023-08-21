@@ -24,11 +24,11 @@
     <!-- 이름, 성별(라디오버튼) 정보를 입력받는 폼 -->
     <form name="register">
       <label for="name">이름</label>
-      <input type="text" id="name" name="name" value="새싹" />
+      <input type="text" id="name" name="name" required />
       <br />
 
       성별
-      <input type="radio" name="gender" value="m" id="male" checked />
+      <input type="radio" name="gender" value="m" id="male" required />
       <label for="male">남</label>
 
       <input type="radio" name="gender" value="f" id="female" />
@@ -40,7 +40,9 @@
       <br />
 
       <!-- <button type="button" onClick="axiosGet()">axios Get 제출</button> -->
-      <button type="button" onClick="axiosGet()">axios Get 제출</button>
+      <button type="button" onClick="axiosGet()">
+        axios Get 제출 (+ form validation)
+      </button>
       <button type="button" onClick="axiosPost()">axios Post 제출</button>
 
       <br />
@@ -48,6 +50,9 @@
       <button type="button" onClick="fetchPost()">fetch Post 제출</button>
       <hr />
     </form>
+
+    <!-- 동적 폼 전송 결과를 보여줄 곳 -->
+    <div class="result">1234</div>
 
     <h1>OPEN API를 이용해 고양이 사진 랜덤 돌리기!</h1>
     <button onclick="changeImg()">랜덤</button>
@@ -57,8 +62,6 @@
       src="https://w7.pngwing.com/pngs/633/239/png-transparent-mario-mario.png"
       alt="고양이"
     />
-    <!-- 동적 폼 전송 결과를 보여줄 곳 -->
-    <div class="result">1234</div>
 
     <script>
       //frontend javascript
@@ -195,15 +198,30 @@
           name: form.name.value,
           gender: form.gender.value,
         };
+
+        console.log(form.name.checkValidity());
+        //같은 name으로 묶인 radio btn은 하나만 선택되더라도 true를 반환
+        console.log(form.gender[0].checkValidity());
+        console.log(form.gender[1].checkValidity());
         try {
-          const response = await axios({
-            method: 'get', // 요청 방식 (= form method 속성)
-            url: '/axios', // 요청 경로  (= form action 속성)
-            params: data, // 서버로 보낼 데이터(query string)
-          }); // response: 서버의 응답 결과
-          const { name, gender } = data;
           let resultBox = document.querySelector('div.result');
-          resultBox.innerText = `GET /axios 요청 완료!! ${name}님은 ${gender}이시죠?ㅎㅎ`;
+          // 폼 유효선 검사
+          // name input에 입력된 값이 없다면, '이름을 입력해주세요!'
+          // gender radio btn을 선택하지 않았다면, '성별을 선택해주세요!'
+          // 둘 다 입력이 잘 되었다면, axios로 back에 요청 날리기
+          if (!form.name.checkValidity()) {
+            resultBox.innerText = `이름을 입력해주세요!`;
+          } else if (!form.gender[0].checkValidity()) {
+            resultBox.innerText = `성별을 선택해주세요!`;
+          } else {
+            const response = await axios({
+              method: 'get', // 요청 방식 (= form method 속성)
+              url: '/axios', // 요청 경로  (= form action 속성)
+              params: data, // 서버로 보낼 데이터(query string)
+            }); // response: 서버의 응답 결과
+            const { name, gender } = data;
+            resultBox.innerText = `GET /axios 요청 완료!! ${name}님은 ${gender}이시죠?ㅎㅎ`;
+          }
         } catch (error) {
           console.log('Error!', error);
           let resultBox = document.querySelector('div.result');
