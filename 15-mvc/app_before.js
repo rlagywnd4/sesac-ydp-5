@@ -75,7 +75,7 @@ app.get('/comments/:id', (req, res) => {
 });
 
 // param 여러개 사용 가능
-app.get(`/test/:id:name`, (req, res) => {
+app.get(`/test/:id/:name`, (req, res) => {
   console.log('req.params', req.params);
   res.send('test res success!');
 });
