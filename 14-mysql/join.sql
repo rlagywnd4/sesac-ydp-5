@@ -29,9 +29,10 @@ select custname, prodname, price from customer inner join orders
 
 -- 고객 이름별로 주문한 제품 총 구매액을 고객 별로 오름 차순 정렬
 select custname, sum(price * amount) as 'total_price'
-	from customer, orders
+	from customer inner join orders
     where customer.custid = orders.custid
     group by custname
     order by total_price desc;
+    
 
 

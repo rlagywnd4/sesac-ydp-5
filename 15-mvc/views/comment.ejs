@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MVC 패턴</title>
+  </head>
+  <body>
+    <%// const {id, userid, date, comment} = comment; %>
+    <h1><%=comment.userid%> 님의 댓글입니다.</h1>
+    <a href="/">홈으로 이동하기</a> <br />
+    <a href="/comments">댓글 목록 확인하기</a>
+    <p>작성일: <%=comment.date%></p>
+    <p>댓글 내용: <%=comment.comment%></p>
+  </body>
+</html>
