@@ -227,6 +227,7 @@ select custid, sum(amount), sum(price * amount)
  -- select 절에서 group by 에서 사용한 속성과 집계함수만 사용가능
  -- 고객별로 주문한 주문 건수 구하기
 select custid, count(*) from orders group by custid;
+
  
  
  
