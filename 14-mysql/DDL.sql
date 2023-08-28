@@ -48,5 +48,3 @@ alter table product add new_column date;
 alter table product change new_column new_column2 date;
 -- 5-2. 컬럼 삭제
 alter table product drop new_column2;
-
-
