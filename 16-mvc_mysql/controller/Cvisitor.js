@@ -14,3 +14,12 @@ exports.getVisitors = (req, res) => {
     res.render('visitor', { data: result });
   });
 };
+
+exports.postVisitor = (req, res) => {
+  console.log(req.body);
+  const { name, comment } = req.body;
+  Visitor.postVisitor(req.body, (insertId) => {
+    console.log('controller >> ', insertId);
+    res.send({ id: insertId, name: name, comment: comment });
+  });
+};
