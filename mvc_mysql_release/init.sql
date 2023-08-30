@@ -1,3 +1,4 @@
+
 -- 데이터베이스 목록 확인
 SHOW databases;
 
