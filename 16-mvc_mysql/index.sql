@@ -2,6 +2,8 @@
 show databases;
 drop database sessac;
 
+drop table visitor;
+
 -- 이모지, 특수 문자를 사용할 수 있는 인코딩
 create database sesac character set utf8mb4 collate utf8mb4_unicode_ci;
 

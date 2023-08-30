@@ -8,6 +8,7 @@
 const mysql = require('mysql');
 
 // db 연결 설정
+// 이 기능을 config.json이 해줌
 const conn = mysql.createConnection({
   host: 'localhost',
   user: 'user',
