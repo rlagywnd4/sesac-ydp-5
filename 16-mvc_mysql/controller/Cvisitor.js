@@ -33,3 +33,24 @@ exports.deleteVisitor = (req, res) => {
     res.send(result); // res.send(true)
   });
 };
+
+exports.getVisitor = (req, res) => {
+  //console.log(req.query);
+  console.log(req.params);
+  const { id } = req.params;
+
+  Visitor.getVisitor(id, (result) => {
+    // result: 모델의 getVisitor callback의 인자(rows[0])
+    console.log(result);
+    res.send(result);
+  });
+};
+
+exports.updateVisitor = (req, res) => {
+  console.log(req.body);
+
+  Visitor.updateVisitor(req.body, (result) => {
+    console.log(result);
+    res.send({ isUpdated: true });
+  });
+};

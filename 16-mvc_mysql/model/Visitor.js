@@ -64,3 +64,27 @@ exports.deleteVisitor = (id, callback) => {
     callback(true);
   });
 };
+
+exports.getVisitor = (id, callback) => {
+  conn.query(`select * from visitor where id = ${id}`, (err, rows) => {
+    if (err) {
+      throw err;
+    }
+
+    console.log('rows', rows); // [ {} ]
+    callback(rows[0]);
+  });
+};
+
+exports.updateVisitor = (updateData, callback) => {
+  const { id, name, comment } = updateData;
+  const sql = `update visitor set name='${name}', comment='${comment}' where id=${id}`;
+  conn.query(sql, (err, rows) => {
+    if (err) {
+      throw err;
+    }
+
+    console.log(rows);
+    callback();
+  });
+};
