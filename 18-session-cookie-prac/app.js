@@ -24,7 +24,8 @@ app.get('/', (req, res) => {
   // console.log('req.cookies.popup >> ', req.cookies.popup);
 
   // TODO: index.ejs render할 때 두 번째 인자로 popup key 로 요청의 쿠키값 보내기
-  res.render('index', { popup: 'hide' });
+
+  res.render('index', { popup: req.cookies.popup });
 });
 
 app.post('/setcookie', (req, res) => {
