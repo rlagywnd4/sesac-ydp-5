@@ -1,4 +1,3 @@
-
 insert into team(name, createdAt, updatedAt) values 
   ('sk', now(), now()), 
   ('kt', now(), now()), 
