@@ -14,6 +14,7 @@ app.use(cookieParser(COOKIE_SECRET_KEY)); // 암호화 쿠키
 const myCookieConf = {
   httpOnly: true,
   maxAge: 60 * 1000, // 1m
+  //exxpires: setCookieExpireDay(),
   signed: true,
 };
 
@@ -25,7 +26,7 @@ app.get('/', (req, res) => {
 
   // TODO: index.ejs render할 때 두 번째 인자로 popup key 로 요청의 쿠키값 보내기
 
-  res.render('index', { popup: req.cookies.popup });
+  res.render('index', { popup: req.signedCookies.popup });
 });
 
 app.post('/setcookie', (req, res) => {
@@ -38,6 +39,13 @@ app.post('/setcookie', (req, res) => {
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
 });
+
+function setCookieExpireDay(){
+  let date = new Date(Date.now() + 86400e3);
+  date = date.toUTCString();
+  console.log(date);
+  return date;
+}
 
 // 힌트
 // req 객체
