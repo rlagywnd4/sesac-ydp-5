@@ -4,6 +4,9 @@ const session = require('express-session');
 const app = express();
 const PORT = 8080;
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 app.set('view engine', 'ejs');
 app.use(
   session({

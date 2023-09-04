@@ -53,8 +53,9 @@ app.post('/login', (req, res) => {
   const pw = '4321';
   let isSuccess = false;
   if (id === userId && pw === userPw) {
-    isSuccess = true;
-    res.render('/', { isSuccess: isSuccess });
+    // isSuccess = true;
+    // req.session.user = id;
+    // res.render('/', { isSuccess: isSuccess, userId: req.session.user });
   } else {
     isSuccess = false;
     res.send([req.body, { isSuccess: isSuccess }]);
