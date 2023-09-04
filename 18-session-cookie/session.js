@@ -7,7 +7,7 @@ const PORT = 8080;
 app.set('view engine', 'ejs');
 app.use(
   session({
-    secret: 'MySessionSecretKey', // 암호화 키
+    secret: process.env.SESSIONKEY, // 암호화 키
     resave: false,
     saveUninitialized: true,
     cookie: {
