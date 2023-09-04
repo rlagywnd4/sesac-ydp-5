@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('include', {title: 'Home'}) %>
+  </head>
+  <body>
+    <%- include('header') %>
+    <h1>실습. Session 연습</h1>
+    <p>여기는 Home 입니다! 🏡</p>
+
+    <!-- TODO: isLogin 값에 따라 서로 다른 메세지 보여주기 -->
+    <!-- 로그인시 -->
+    <p id="success"><%= userId %>님 환영합니다 🙌🏻</p>
+    <!-- 로그아웃시 -->
+    <p id="fail">로그인을 아직 하지 않으셨군요! 로그인을 진행해보세요!</p>
+    <script>
+      const sP = document.querySelector('#success');
+      const fP = document.querySelector('#fail');
+      if (`<%= session. %>`) {
+        console.log('not');
+      } else {
+        console.log('ok');
+        console.log(`<%= userId %>`);
+      }
+    </script>
+  </body>
+</html>
