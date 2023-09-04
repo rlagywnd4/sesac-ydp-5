@@ -21,6 +21,7 @@ const myCookieConf = {
   httpOnly: true,
   maxAge: 60 * 1000, // 1m
   signed: true,
+  s,
 };
 
 app.get('/', (req, res) => {

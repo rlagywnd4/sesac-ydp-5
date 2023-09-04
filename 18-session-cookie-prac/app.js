@@ -40,7 +40,7 @@ app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
 });
 
-function setCookieExpireDay(){
+function setCookieExpireDay() {
   let date = new Date(Date.now() + 86400e3);
   date = date.toUTCString();
   console.log(date);
