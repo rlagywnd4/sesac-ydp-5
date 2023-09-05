@@ -1,5 +1,5 @@
 // TODO: User 모델 모듈 불러오기
-const { User } = require('../models/User');
+const { User } = require('../models/index');
 // TODO: bcrypt 패키지 불러오기
 const bcrypt = require('bcrypt');
 
@@ -40,6 +40,21 @@ exports.getProfile = async (req, res) => {
 exports.postRegister = async (req, res) => {
   // 회원가입 요청시 비밀번호는 암호화한 값으로 DB에 추가
   // 응답은 {result: true}
+  try {
+    console.log('req.body = ', req.body);
+    console.log('User = ', User);
+    const { userid, pw, name } = req.body;
+    const newUser = await User.create({
+      id: userid,
+      name: pw,
+      comment: name,
+    });
+    res.send(newUser);
+  } catch (err) {
+    console.log(err);
+    res.send('Internal Server Error!!!');
+  }
+  res.send({ result: true });
 };
 
 exports.postLogin = async (req, res) => {

@@ -29,8 +29,8 @@ app.use('/', indexRouter);
 
 // TODO: 404 처리
 app.get('*', (req, res) => {
-  console.log('error발생!!!!!!!!!!!');
   res.render('404');
+  console.log('error발생!!!!!!!!!!!');
 });
 
 db.sequelize.sync({ force: false }).then(() => {

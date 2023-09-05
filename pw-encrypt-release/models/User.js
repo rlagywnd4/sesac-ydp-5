@@ -12,13 +12,13 @@ const User = (Sequelize, DataTypes) => {
         autoIncrement: true,
       },
       name: {
+        // comment MEDIUMTEXT
+        type: DataTypes.TEXT('medium'),
+      },
+      comment: {
         // name VARCHAR(10) NOT NULL,
         type: DataTypes.STRING(10),
         allowNull: false,
-      },
-      comment: {
-        // comment MEDIUMTEXT
-        type: DataTypes.TEXT('medium'),
       },
     },
     {
