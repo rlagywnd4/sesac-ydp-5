@@ -2,6 +2,7 @@ import './App.css';
 import Button from './inClass/Button';
 import ClassComponent from './inClass/ClassComponent';
 import FunctionComponent from './inClass/FunctionComponent';
+import BestSeller from './prac/BestSeller';
 import Food from './prac/Food';
 import Test from './prac/Test';
 import Test2 from './prac/Test2';
@@ -25,6 +26,9 @@ function App() {
 
       <hr />
       <Food></Food>
+
+      <hr />
+      <BestSeller />
     </div>
   );
 }

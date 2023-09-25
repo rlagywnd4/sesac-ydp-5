@@ -2,7 +2,13 @@ import propTypes from 'prop-types';
 
 // export default function FunctionComponent(props) {
 export default function BestSeller({ name }) {
-  return <div></div>;
+  return (
+    <div>
+      <h2>이번주 베스트셀러</h2>
+      <img src="" alt=""></img>
+      <p></p>
+    </div>
+  );
 }
 
 BestSeller.defaultProps = {
