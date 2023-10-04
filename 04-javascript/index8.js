@@ -194,3 +194,24 @@ for (let key in me) {
   // key: key
   // value : me[key]
 }
+
+///////////////////////////////////////
+// reduce()
+// : 배열의 각 요소에 대해서 주어진 리듀서(reducer) 함수를 실행하고, 하나의 결과값 반환
+
+// reduce((acc, cur) => { ... })
+// - acc: 누산기(누적되는 값)
+// - cur: 현재 요소
+
+// const numberss = [1, 2, 3, 4, 5];
+// const result = numberss.reduce((accumulator, currentValue) => {
+//   return accumulator + currentValue;
+// });
+// console.log(result); // 15
+
+const numberss = [1, 2, 3, 4, 5];
+const initialValue = 100;
+const result = numberss.reduce((accumulator, currentValue) => {
+  return accumulator + currentValue;
+}, initialValue);
+console.log(result); // 115
