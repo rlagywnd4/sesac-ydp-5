@@ -215,3 +215,15 @@ const result = numberss.reduce((accumulator, currentValue) => {
   return accumulator + currentValue;
 }, initialValue);
 console.log(result); // 115
+
+//////////////////////////////////////
+// 여러 배열 합치는 방법
+
+// 1. concat()
+// 문자열, 배열 사용가능
+const arr_1 = [1, 2, 3];
+const arr_2 = [3, 4, 5];
+console.log(arr_1.concat(arr_2)); //[ 1, 2, 3, 3, 4, 5 ]
+
+// 2. ... spread
+console.log([...arr_1, ...arr_2]); //[ 1, 2, 3, 3, 4, 5 ]
