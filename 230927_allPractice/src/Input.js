@@ -1,7 +1,11 @@
 import React from 'react';
 function Input(props) {
+  const setData = props.setData;
   const onTyping = (e) => {
-    props.setContent(e.target.value);
+    // props.setContent(e.target.value);
+    setData((data) => {
+      return { ...data, content: e.target.value };
+    });
   };
   return (
     <>

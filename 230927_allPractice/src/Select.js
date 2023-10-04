@@ -1,11 +1,15 @@
 import React from 'react';
 function Select(props) {
+  const setData = props.setData;
   return (
     <>
       과일 :
       <select
         onChange={(e) => {
-          props.setFruit(e.target.value);
+          // props.setFruit(e.target.value);
+          setData((data) => {
+            return { ...data, fruit: e.target.value };
+          });
         }}
       >
         <option value="apple">사과</option>
@@ -16,7 +20,10 @@ function Select(props) {
       배경색 :
       <select
         onChange={(e) => {
-          props.setBgColor(e.target.value);
+          // props.setBgColor(e.target.value);
+          setData((data) => {
+            return { ...data, bgColor: e.target.value };
+          });
         }}
       >
         <option value="black">검정</option>
@@ -32,7 +39,10 @@ function Select(props) {
       글자색 :
       <select
         onChange={(e) => {
-          props.setColor(e.target.value);
+          // props.setColor(e.target.value);
+          setData((data) => {
+            return { ...data, color: e.target.value };
+          });
         }}
       >
         <option value="black">검정</option>

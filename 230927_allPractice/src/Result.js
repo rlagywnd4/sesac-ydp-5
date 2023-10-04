@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 function Result(props) {
-  const { content, fruit, bgColor, color } = props;
+  const { content, fruit, bgColor, color } = props.data;
   const fruitSrc = `${fruit}.png`;
   console.log('fruitSrc>>>>>>>>', fruitSrc);
   return (
