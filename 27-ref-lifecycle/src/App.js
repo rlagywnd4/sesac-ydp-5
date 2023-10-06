@@ -1,3 +1,4 @@
+import Ex1 from './Ex1';
 import RefSample1 from './RefSample1';
 import RefSample2 from './RefSample2';
 import RefSample3 from './RefSample3';
@@ -19,6 +20,8 @@ function App() {
 
       {/* 클래스형 컴포넌트 */}
       <RefSample4 />
+      <hr />
+      <Ex1 />
     </div>
   );
 }

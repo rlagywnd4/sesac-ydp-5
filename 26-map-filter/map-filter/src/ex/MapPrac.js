@@ -4,7 +4,7 @@ export default function MapPrac() {
   const [inputName, setInputName] = useState(''); // 초기 설정을 ''로 한 이유:
   const [inputTitle, setInputTitle] = useState(''); // 안하면 trim 사용이 안됨(에러 발생)
   const [content, setContent] = useState([]);
-  const [searchKey, setSearchKey] = useState('id'); // select문에 있는 조건
+  const [searchKey, setSearchKey] = useState(); // select문에 있는 조건
   const [searchWord, setSearchWord] = useState(); // 검색어
   const [searchResult, setSearchResult] = useState([]); //검색결과
   const inputNameRef = useRef(); //빈 값 포커스를 위한 ref(이름)
@@ -92,7 +92,9 @@ export default function MapPrac() {
           console.log('searchKey=======', searchKey);
         }}
       >
-        <option value="id">번호</option>
+        <option value="id" selected>
+          번호
+        </option>
         <option value="name">작성자</option>
         <option value="title">제목</option>
       </select>
