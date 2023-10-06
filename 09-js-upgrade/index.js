@@ -293,3 +293,38 @@ const cir1 = new Circle(4, 4, 2);
 console.log(rec2.getArea());
 console.log(tri1.getArea());
 console.log(cir1.getArea());
+
+//////////////////////////////////////////////////////
+// 단축 평가
+// &&, ||
+
+// A && B : 두 개의 피연산자 모두 t면 t 반환
+// A || B : 두 개의 피연산자 중에서 하나만 true여도 true를 반환
+
+console.log(true && true); // true
+console.log(false && true); // false
+
+console.log(true || false); // true
+console.log(false || true); //true
+
+const xx = 5;
+const yy = 7;
+
+// 삼항연산자 예시
+const result2 = xx > yy ? 'xx가 큼' : 'yy가 큼';
+console.log(result2); // yy가 큼
+
+// 단축평가 (&&, 논리곱)
+const result3 = xx > yy && 'xx가 큼';
+console.log(result3); //false
+const result4 = xx < yy && 'yy가 큼';
+console.log(result4); // yy가 큼
+
+// 단축평가 (||, 논리합)
+const result5 = xx || 100;
+console.log(result5); //5
+
+const nameEx1 = '홍길동';
+const nameEx2 = '';
+console.log(nameEx1 || '이름없음');
+console.log(nameEx2 || '이름없음');
