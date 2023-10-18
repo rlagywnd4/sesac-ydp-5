@@ -1,9 +1,8 @@
-// redux 연습
 import { useSelector, useDispatch } from 'react-redux';
 import './styles/Box.css';
 
 function App() {
-  const number = useSelector((state) => state.number);
+  const number = useSelector((state) => state.counter.number);
 
   return (
     <div className="App">
@@ -39,17 +38,21 @@ const Box3 = () => {
   );
 };
 const Box4 = () => {
-  const number = useSelector((state) => state.number);
+  const number = useSelector((state) => state.counter.number);
+  const isVisible = useSelector((state) => state.isVisible);
   const dispatch = useDispatch();
+
   return (
     <div className="Box">
       <h2>Box4: {number}</h2>
+      <h2>isVisible 값은 {isVisible ? '참' : '거짓'} 이다.</h2>
       <button onClick={() => dispatch({ type: 'PLUS' })}>plus</button>
       <button onClick={() => dispatch({ type: 'MINUS' })}>minus</button>
+
+      {/* 퀴즈. CHANGE 버튼을 클릭하면 '참', '거짓' 글자가 토글 */}
+      <button onClick={() => dispatch({ type: 'CHANGE' })}>CHANGE</button>
     </div>
   );
 };
 
-// export를 default로 하면 함수이름이 파일 이름과 달라도 된다.
-// default는 하나만 사용가능
 export default App;
