@@ -67,3 +67,128 @@ let olimplc_newgame: readonly [object, boolean] = [
   { name: '쇼트트랙', type: '혼성 계주' },
   true,
 ];
+
+console.log(Auth[1]);
+console.log(Cafe['latte']);
+
+//////////////////////////////////////////////////////////////////
+// 1. interface
+interface Student {
+  name: string;
+  isPassed: boolean;
+}
+
+const student1: Student = {
+  name: 'hyo',
+  isPassed: true,
+  // addr: 'seoul',
+};
+const student2: object = {
+  name: 'hyo',
+  isPassed: true,
+  addr: 'seoul',
+};
+
+// interface 상속
+// interface BaseballClub { // interface 상속 X
+//   name: string;
+//   isPassed: boolean;
+//   position: string;
+//   height: number;
+// }
+
+// type Score = 'A+' | 'A' | 'B' | 'C' | 'D' | 'F';
+enum Score {
+  Aplus = 'A+',
+  A = 'A',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  F = 'F',
+}
+
+interface BaseballClub extends Student {
+  // interface 상속 O
+  position: string;
+  height: number;
+  readonly backNumber?: number; //backNumber라는 키는 있어도되고 없어도됨 // readonly를 넣으면 값 변경 불가
+  [grade: number]: Score; // 숫자형인 grade가 키값이고 value는 위에서 만든 Score타입
+}
+
+const otani: BaseballClub = {
+  name: 'ontani',
+  isPassed: true,
+  position: 'pitcher',
+  height: 193,
+  // backNumber: 17,
+  // 1: 'A+', // type 사용
+  1: Score.A, // enum 사용
+};
+
+console.log(otani);
+
+otani.position = '투수';
+otani['height'] = 200;
+// otani.backNumber = 16; error: backNumber readonly
+console.log(otani);
+
+type Bp1 = 500 | 700 | 1000;
+enum Bp2 { // 요소들간에 관계가 있을때 enum사용하면 편함
+  SM = 500,
+  MD = 700,
+  LG = 1000,
+}
+
+const width1: Bp1 = 500; // type은 개발자가 값을 알아야함
+const width2: Bp2 = Bp2.SM; // enum은 몰라도 됨
+
+// 교차 타입 : 두개 이상의 타입을 합치는 것
+interface Toy {
+  name: string;
+  start(): void;
+}
+
+interface Car {
+  name: string;
+  color: string;
+  price: number;
+}
+
+type ToyCar = Toy & Car;
+const toyCar: ToyCar = {
+  name: 'tayo',
+  start() {
+    console.log('출발~~~');
+  },
+  color: 'blue',
+  price: 5000,
+};
+
+/// 2. type
+type Gender = 'F' | 'M';
+type Person = {
+  name: string;
+  age?: number;
+  like?: string[];
+  gender: Gender;
+};
+
+let daniel: Person = {
+  name: 'daniel',
+  gender: 'F', // Gender 탕비에 선언된 값만 넣을 수 있음
+  age: 20,
+  like: ['minji', 'hani'],
+};
+
+///////////////////////////////////////////////////////////
+// 실습. interface 이용
+
+type category = '액션' | '로맨스' | ' 판타지' | '롤플레잉';
+type platform = '모바일' | 'PC' | 'VR';
+interface Game {
+  title: string;
+  price: number;
+  desc?: string;
+  category: category;
+  platform: platform;
+}
