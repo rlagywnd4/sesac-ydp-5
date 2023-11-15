@@ -17,6 +17,7 @@
         }
     
         #chat-container {
+            overflow-y: scroll;
           max-width: 600px;
           margin: 50px auto;
           overflow-y: auto; /* 채팅이 많아지면 스크롤이 생김 */
@@ -98,7 +99,9 @@
           cursor: pointer;
         }
 
-        .d-none {}
+        .d-none {
+        /* display: none; */
+      }
       </style>
   </head>
   <body>
@@ -130,18 +133,18 @@
         <!-- <div class="message my-chat">user1: msg1</div>
         <div class="message other-chat">user2: msg2</div> -->
         </div>
-        <!-- 메세지 전송 영역 -->
-        <div id="input-form">
-            <select id="nick-list"></select
-                >에게
-          <input
-            type="text"
-            id="message-input"
-            placeholder="메시지를 입력하세요"
-            onkeypress="if(window.event.keyCode==13){send()}"
-          />
-          <button type="button" id="send-button" onclick="send();">보내기</button>
-        </div>
+    </div>
+    <!-- 메세지 전송 영역 -->
+    <div id="input-form">
+        <select id="nick-list"></select
+            >에게
+      <input
+        type="text"
+        id="message-input"
+        placeholder="메시지를 입력하세요"
+        onkeypress="if(window.event.keyCode==13){send()}"
+      />
+      <button type="button" id="send-button" onclick="send();">보내기</button>
       </div>
     </main>
 
@@ -232,6 +235,7 @@
     socket.on('updateNicks', (nickObjs) => {
         // nickObjs: {socket.id: nick1, socket.id: nick2, ...}
 
+        console.log('유저목록 업데이트');
         let options = `<option value="all">전체</option>`;
         document.querySelector('#nick-list').innerHTML = options;
 
@@ -239,12 +243,14 @@
         // option 태그의 value 속성 값은 socket.id, option 태그의 컨텐츠 nick 값
         for(const key in nickObjs){
             // 내 코드
-            // let newOption = document.createElement('option');
-            // newOption.value = key;
-            // newOption.innerText = nickObjs[key];
-            // document.querySelector('#nick-list').appendChild(newOption);
+            let newOption = document.createElement('option');
+            newOption.value = key;
+            if(nickObjs[key] !== myNick){
+                newOption.innerText = nickObjs[key];
+                document.querySelector('#nick-list').appendChild(newOption);
+            }
             // 수업
-            options += `<option value="${key}">${nickObjs[key]}</option>`;
+            // options += `<option value="${key}">${nickObjs[key]}</option>`;
         }
 
     })
@@ -254,6 +260,53 @@
       socket.on('disconnect', () => {
         console.log('클라이언트 연결 해제');
       });
+
+      // [실습4] 채팅창 메세지 전송 step1
+      function send(){
+        if(!myNick){
+            return;
+        }
+          // "send" 이벤트 전송 { 닉네임, 입력창 내용}
+          console.log('start');
+          const selectbox = document.querySelector('#nick-list');
+          console.log(selectbox.value)
+              msg = document.querySelector('#message-input').value;
+              console.log(msg);
+              socket.emit('send', {nickname:myNick, msg:msg, to:selectbox.value});
+        document.querySelector('#message-input').value = ''; // 인풋 초기화
+
+      }
+
+      socket.on('newMsg', (data, from)=>{
+        // <div class="message other-chat">user2: msg2</div>
+        if(data.nickname === myNick){
+            let messageDiv = document.createElement('div');
+        messageDiv.className = 'message my-chat';
+        messageDiv.innerText = `${data.nickname}: ${data.msg}`;
+        let chatContainer = document.querySelector('.chat-list');
+         chatContainer.appendChild(messageDiv);
+        }else if(from === 'all'){
+            let messageDiv = document.createElement('div');
+            messageDiv.className = 'message other-chat';
+            messageDiv.innerText = `${data.nickname}: ${data.msg}`;
+            let chatContainer = document.querySelector('.chat-list');
+            chatContainer.appendChild(messageDiv);
+        }else if(from === 'personal'){
+            let messageDiv = document.createElement('div');
+            messageDiv.className = 'message other-chat';
+            messageDiv.innerText = `개인DM-${data.nickname}: ${data.msg}`;
+            let chatContainer = document.querySelector('.chat-list');
+            chatContainer.appendChild(messageDiv);
+
+        }
+        // 채팅창 스크롤을 하단으로 이동
+        let chatting = document.querySelector('.chat-list');
+         chatting.scrollTop = chatting.scrollHeight;
+      })
+
+      // newMessage 이벤트를 받아서 {닉네임, 입력창}
+      // 내가 보낸 메세지; 오른쪽
+      // 다른 사람이 보낸 메세지; 왼쪽
     </script>
   </body>
 </html>

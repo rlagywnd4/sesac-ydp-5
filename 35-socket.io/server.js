@@ -31,9 +31,9 @@ io.on('connection', (socket) => {
   // socket.id: 소켓 고유 아이디 (브라우저 탭 단위)
 
   // [실습1] : 내 코드
-  socket.on('Message', (data) => {
-    console.log(data.who, ':', data.msg);
-  });
+  //   socket.on('Message', (data) => {
+  //     console.log(data.who, ':', data.msg);
+  //   });
   // [실습1] : 수업 코드
   //   socket.on('hello', (data) => {
   //     console.count(`${data.who} : ${data.msg}`);
@@ -49,7 +49,7 @@ io.on('connection', (socket) => {
 
   // [실습3] 채팅창 입장 안내
   //   io.emit('notice', `${socket.id}님이 입장하셨습니다.`);
-  // [실습3-2]
+  // [실습3-2] 채팅창 입장 문구
   socket.on('setNick', (nick) => {
     console.log(`닉네임 설정 완료 :: ${nick} 님 입장`);
 
@@ -77,7 +77,19 @@ io.on('connection', (socket) => {
     io.emit('notice', `${nickObjs[socket.id]}님이 퇴당하셨습니다.`);
     delete nickObjs[socket.id];
   });
+
+  socket.on('send', (data) => {
+    if (data.to === 'all') {
+      io.emit('newMsg', data, 'all');
+    } else {
+      io.to(data.to).emit('newMsg', data, 'personal');
+    }
+  });
 });
+
+// [실습4] 채팅창 메세지 전송 step1
+// send 이벤트를 받아서
+// 모두에게 newMessage 이벤트로 {닉네임, 입력창 내용} 데이터를 전송
 
 server.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
