@@ -79,11 +79,21 @@ io.on('connection', (socket) => {
   });
 
   socket.on('send', (data) => {
+    // 내 코드
     if (data.to === 'all') {
       io.emit('newMsg', data, 'all');
     } else {
-      io.to(data.to).emit('newMsg', data, 'personal');
+      socket.emit('newMsg', data, 'me', nickObjs[data.to]);
+      io.to(data.to).emit('newMsg', data, 'personal'); // 상대방한테만 보내고 나한테는 보내지않아 자신이 쓴 채팅이 안보임
     }
+
+    // 수업 코드
+    // console.log('send 이벤트로 받은 data :: ', data);
+    // [실습5]
+    // 디엠인지 아닌지 구분해서
+    // io.to(소켓아이디).emit(event_name, data)
+
+    // io.emit('newMessage', { nick: data.myNick, msg: data.msg });
   });
 });
 

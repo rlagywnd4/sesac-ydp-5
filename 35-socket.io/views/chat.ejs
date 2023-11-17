@@ -5,104 +5,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>socket.io채팅</title>
     <script src="/socket.io/socket.io.js"></script>
-    <style>
-        body {
-          background-color: #87CEEB; /* 하늘색 배경 */
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-          min-height: 100vh;
-        }
-    
+    <!-- 이전 코드 -->
+    <!-- <style>
+      body {
+        background-color: #87ceeb; /* 하늘색 배경 */
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      /*     
         #chat-container {
-            overflow-y: scroll;
-          max-width: 600px;
-          margin: 50px auto;
-          overflow-y: auto; /* 채팅이 많아지면 스크롤이 생김 */
-          flex-grow: 1; /* 채팅창이 늘어날 때 페이지 높이를 채우도록 */
-          display: flex;
-          flex-direction: column; /* 정상적인 순서로 표시하기 위해 역순 제거 */
-        }
-    
-        .message {
-          padding: 10px;
-          margin: 10px;
-          border-radius: 10px;
-          max-width: 80%;
-          overflow-wrap: break-word;
-          word-wrap: break-word;
-          word-break: break-all;
-        }
-    
-        .my-chat, .other-chat, .entry-message {
-          clear: both;
-          padding: 10px;
-          margin: 10px;
-          border-radius: 10px;
-          max-width: 80%;
-          overflow-wrap: break-word;
-          word-wrap: break-word;
-          word-break: break-all;
-        }
-    
-        .my-chat {
-          background-color: #FFFFFF; /* 내 채팅 흰색 */
-          float: right;
-        }
-    
-        .other-chat {
-          background-color: #FFFF00; /* 상대방 채팅 노란색 */
-          float: left;
-        }
-    
-        .entry-message {
-          text-align: center;
-          font-style: italic;
-          color: #888888;
-        }
-    
-        #input-form {
-          width: 100%; /* 폭을 100%로 설정하여 페이지에 맞춤 */
-          max-width: 600px;
-          margin: 20px auto;
-          position: fixed; /* 입력 폼이 화면 아래에 고정 */
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          background-color: white;
-          padding: 10px;
-          box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.1); /* 입력 폼과 채팅창을 나누는 그림자 효과 */
-          box-sizing: border-box; /* padding과 border를 요소의 크기에 포함시킴 */
-          display: flex; /* 입력 폼 내부의 요소를 수평으로 정렬하기 위해 flex 사용 */
-        }
-    
-        #message-input {
-          flex: 1; /* 남은 공간을 모두 사용하도록 설정 */
-          width: calc(100% - 20px); /* 입력 폼의 너비에서 padding을 뺌 */
-          padding: 10px;
-          box-sizing: border-box;
-          border: none;
-          border-radius: 5px;
-        }
-    
-        #send-button {
-          width: 28%; /* 버튼의 너비를 설정 */
-          margin-left: 10px; /* 버튼과 입력 폼 사이의 간격을 조절 */
-          padding: 10px;
-          box-sizing: border-box;
-          border: none;
-          border-radius: 5px;
-          background-color: #4CAF50; /* 초록색 버튼 */
-          color: white;
-          cursor: pointer;
-        }
+        } */
 
-        .d-none {
+      .chat-list {
+        display: flex;
+        flex-direction: column; /* 정상적인 순서로 표시하기 위해 역순 제거 */
+        flex-grow: 1; /* 채팅창이 늘어날 때 페이지 높이를 채우도록 */
+        max-width: 600px;
+        margin: 50px auto;
+        background-color: skyblue;
+        width: 50%;
+        height: 500px;
+        padding: 10px;
+        max-height: calc(
+          100vh - 140px
+        ); /* 화면에서 입력 폼과 여백을 뺀 높이까지만 표시하도록 설정 */
+        overflow-y: auto;
+      }
+
+      .message {
+        box-sizing: border-box;
+        max-width: 80%;
+        margin: 10px;
+        border-radius: 10px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-all;
+      }
+
+      .my-chat,
+      .other-chat,
+      .entry-message {
+        box-sizing: border-box;
+        max-width: 80%;
+        margin: 10px;
+        border-radius: 10px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-all;
+        clear: both;
+      }
+
+      .my-chat {
+        background-color: #ffffff; /* 내 채팅 흰색 */
+        float: right;
+      }
+
+      .other-chat {
+        background-color: #ffff00; /* 상대방 채팅 노란색 */
+        float: left;
+      }
+
+      .entry-message {
+        text-align: center;
+        font-style: italic;
+        color: #888888;
+      }
+
+      /* 실습5 dm */
+      .secret-chat {
+        background-color: #dd00ff; /* dm 채팅 보라색 */
+        float: left;
+      }
+
+      #input-form {
+        width: 100%;
+        max-width: 600px;
+        margin: 20px auto;
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        padding: 10px;
+        box-shadow: 0px -1px 5px 0px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        display: flex;
+        z-index: 1; /* 채팅 입력 폼이 다른 콘텐츠 위에 나타나도록 함 */
+      }
+
+      #message-input {
+        flex: 1; /* 남은 공간을 모두 사용하도록 설정 */
+        width: calc(100% - 20px); /* 입력 폼의 너비에서 padding을 뺌 */
+        padding: 10px;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 5px;
+      }
+
+      #send-button {
+        width: 28%; /* 버튼의 너비를 설정 */
+        margin-left: 10px; /* 버튼과 입력 폼 사이의 간격을 조절 */
+        padding: 10px;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 5px;
+        background-color: #4caf50; /* 초록색 버튼 */
+        color: white;
+        cursor: pointer;
+      }
+
+      /* 전체 채팅 박스 스타일 (선택 사항) */
+      .chat-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 중앙 정렬을 위해 추가 */
+      }
+
+      .d-none {
         /* display: none; */
       }
-      </style>
+    </style> -->
   </head>
   <body>
     <h1>My Chat</h1>
@@ -120,31 +146,30 @@
         <button onclick="sayBye()">Bye</button>
         
         <p id="form-server"></p> -->
-        
-        <!-- [실습2] 채팅 UI -->
-        
-        <div>
-            <input id="nickname"placeholder="닉네임 설정란"/>
-            <button id="entry" onclick="join()">설정</button>
-        </div>
+
+    <!-- [실습2] 채팅 UI -->
+
+    <div>
+      <input id="nickname" placeholder="닉네임 설정란" />
+      <button id="entry" onclick="join()">설정</button>
+    </div>
     <main class="chat-box">
       <div class="chat-list">
         <!-- 임시 대화 데이터 -->
         <!-- <div class="message my-chat">user1: msg1</div>
         <div class="message other-chat">user2: msg2</div> -->
-        </div>
-    </div>
-    <!-- 메세지 전송 영역 -->
-    <div id="input-form">
+      </div>
+      <!-- 메세지 전송 영역 -->
+      <div id="input-form">
         <select id="nick-list"></select
-            >에게
-      <input
-        type="text"
-        id="message-input"
-        placeholder="메시지를 입력하세요"
-        onkeypress="if(window.event.keyCode==13){send()}"
-      />
-      <button type="button" id="send-button" onclick="send();">보내기</button>
+        >에게
+        <input
+          type="text"
+          id="message-input"
+          placeholder="메시지를 입력하세요"
+          onkeypress="if(window.event.keyCode==13){send()}"
+        />
+        <button type="button" id="send-button" onclick="send();">보내기</button>
       </div>
     </main>
 
@@ -156,9 +181,9 @@
         console.log('클라이언트 연결 완료 :: ', socket.id);
       });
       // [실습1] : 내 코드
-    //   const sendMsg = (msg) => {
-    //     socket.emit('Message', { who: 'meClient', msg });
-    //   };
+      //   const sendMsg = (msg) => {
+      //     socket.emit('Message', { who: 'meClient', msg });
+      //   };
 
       // [실습1] : 수업 코드
       //   function sayHello() {
@@ -189,50 +214,53 @@
       //   });
 
       // 입장 메세지 처리
-    //   socket.on('notice', (data)=>{
-    //     console.log(data)
-    //     // 메시지를 추가할 채팅 창 요소 가져오기
-    //     let chatContainer = document.querySelector('.chat-list');
+      //   socket.on('notice', (data)=>{
+      //     console.log(data)
+      //     // 메시지를 추가할 채팅 창 요소 가져오기
+      //     let chatContainer = document.querySelector('.chat-list');
 
-    //     // 채팅 메시지 요소 생성
-    //     let messageDiv = document.createElement('div');
-    //     messageDiv.className = 'message-container entry-message';
-    //     messageDiv.innerText = data;
-    //      chatContainer.appendChild(messageDiv);
-    //     });
+      //     // 채팅 메시지 요소 생성
+      //     let messageDiv = document.createElement('div');
+      //     messageDiv.className = 'message-container entry-message';
+      //     messageDiv.innerText = data;
+      //      chatContainer.appendChild(messageDiv);
+      //     });
 
+      // [실습3] 채팅창 입장 문구
+      socket.on('notice', (data) => {
+        document
+          .querySelector('.chat-list')
+          .insertAdjacentHTML(
+            'beforeend',
+            `<div class="message-container entry-message">${data}</div>`
+          );
+      });
 
-    // [실습3] 채팅창 입장 문구
-    socket.on('notice', (data) => {
-        document.querySelector('.chat-list')
-        .insertAdjacentHTML('beforeend', `<div class="message-container entry-message">${data}</div>`);
-    });
-
-    // [실습3-2]
-    // emit() from server
-    // - socket.emit(event_name, data): 해당 클라이언트에게만 이벤트, 데이터를 전송
-    // - io.emit(event_name, data): 서버에 접속된 모든 클라이언트 전송
-    function join() {
+      // [실습3-2]
+      // emit() from server
+      // - socket.emit(event_name, data): 해당 클라이언트에게만 이벤트, 데이터를 전송
+      // - io.emit(event_name, data): 서버에 접속된 모든 클라이언트 전송
+      function join() {
         socket.emit('setNick', document.querySelector('#nickname').value);
-    }
-    // [실습3-2]
-    // 닉네임 중복: alert띄우기
-    socket.on('error', (data)=>{
+      }
+      // [실습3-2]
+      // 닉네임 중복: alert띄우기
+      socket.on('error', (data) => {
         alert(data);
-    });
+      });
 
-    // [실습 3-2] 채팅창 
-    // 입장 성공: 닉네임 입력창 비활성화
-    socket.on('entrySuccess', (nick)=>{
+      // [실습 3-2] 채팅창
+      // 입장 성공: 닉네임 입력창 비활성화
+      socket.on('entrySuccess', (nick) => {
         myNick = nick;
         document.querySelector('#nickname').disabled = true; // 인풋 비활성화
         document.querySelector('#entry').disabled = true; // 버튼 비활성화
-        document.querySelector('.chat-box').classList.remove('d-none');// 채팅창 보이기
-    })
+        document.querySelector('.chat-box').classList.remove('d-none'); // 채팅창 보이기
+      });
 
-    // [실습3-2] 채팅창 입장 문구 socket.id -> nickname
-    // 유저 목록 업데이트 (selectbox)
-    socket.on('updateNicks', (nickObjs) => {
+      // [실습3-2] 채팅창 입장 문구 socket.id -> nickname
+      // 유저 목록 업데이트 (selectbox)
+      socket.on('updateNicks', (nickObjs) => {
         // nickObjs: {socket.id: nick1, socket.id: nick2, ...}
 
         console.log('유저목록 업데이트');
@@ -241,68 +269,110 @@
 
         // TODO: nickObjs 반복 돌아서 option 태그 추가
         // option 태그의 value 속성 값은 socket.id, option 태그의 컨텐츠 nick 값
-        for(const key in nickObjs){
-            // 내 코드
-            let newOption = document.createElement('option');
-            newOption.value = key;
-            if(nickObjs[key] !== myNick){
-                newOption.innerText = nickObjs[key];
-                document.querySelector('#nick-list').appendChild(newOption);
-            }
-            // 수업
-            // options += `<option value="${key}">${nickObjs[key]}</option>`;
+        for (const key in nickObjs) {
+          // 내 코드
+          let newOption = document.createElement('option');
+          newOption.value = key;
+          if (nickObjs[key] !== myNick) {
+            newOption.innerText = nickObjs[key];
+            document.querySelector('#nick-list').appendChild(newOption);
+          }
+          // 수업
+          // options += `<option value="${key}">${nickObjs[key]}</option>`;
         }
-
-    })
-    
-    
+      });
 
       socket.on('disconnect', () => {
         console.log('클라이언트 연결 해제');
       });
 
       // [실습4] 채팅창 메세지 전송 step1
-      function send(){
-        if(!myNick){
-            return;
+      function send() {
+        // 내 코드
+        if (!myNick) {
+          return;
         }
-          // "send" 이벤트 전송 { 닉네임, 입력창 내용}
-          console.log('start');
-          const selectbox = document.querySelector('#nick-list');
-          console.log(selectbox.value)
-              msg = document.querySelector('#message-input').value;
-              console.log(msg);
-              socket.emit('send', {nickname:myNick, msg:msg, to:selectbox.value});
+        // "send" 이벤트 전송 { 닉네임, 입력창 내용}
+        console.log('start');
+        const selectbox = document.querySelector('#nick-list');
+        console.log(selectbox.value);
+        msg = document.querySelector('#message-input').value;
+        console.log(msg);
+        socket.emit('send', {
+          nickname: myNick,
+          msg: msg,
+          to: selectbox.value,
+        });
         document.querySelector('#message-input').value = ''; // 인풋 초기화
 
+        // 수업 코드
+        // const data = {
+        //   // 전체: all, 그 외 다른 닉네임: socket.id
+        //   dm: document.querySelector('#nick-list').value,
+        //   myNick, // 내 닉네임
+        //   msg: document.querySelector('#message-input').value // 메세지 내용
+        // };
+        // socket.emit('send');
+        // document.querySelector('#message-input').value = ''; // 인풋 초기화
       }
 
-      socket.on('newMsg', (data, from)=>{
+      // 내 코드
+      socket.on('newMsg', (data, from, to) => {
         // <div class="message other-chat">user2: msg2</div>
-        if(data.nickname === myNick){
-            let messageDiv = document.createElement('div');
-        messageDiv.className = 'message my-chat';
-        messageDiv.innerText = `${data.nickname}: ${data.msg}`;
-        let chatContainer = document.querySelector('.chat-list');
-         chatContainer.appendChild(messageDiv);
-        }else if(from === 'all'){
-            let messageDiv = document.createElement('div');
-            messageDiv.className = 'message other-chat';
-            messageDiv.innerText = `${data.nickname}: ${data.msg}`;
-            let chatContainer = document.querySelector('.chat-list');
-            chatContainer.appendChild(messageDiv);
-        }else if(from === 'personal'){
-            let messageDiv = document.createElement('div');
-            messageDiv.className = 'message other-chat';
-            messageDiv.innerText = `개인DM-${data.nickname}: ${data.msg}`;
-            let chatContainer = document.querySelector('.chat-list');
-            chatContainer.appendChild(messageDiv);
-
+        if (data.nickname === myNick) {
+          console.log('nick', data.nickname, myNick);
+          let messageDiv = document.createElement('div');
+          messageDiv.className = 'message my-chat';
+          if (from === 'me') {
+            messageDiv.innerText = `개인DM-${to}에게 : ${data.msg}`;
+          } else {
+            messageDiv.innerText = `${data.msg}`;
+          }
+          let chatContainer = document.querySelector('.chat-list');
+          chatContainer.appendChild(messageDiv);
+        } else if (from === 'all') {
+          console.log('nick', data.nickname, myNick);
+          let messageDiv = document.createElement('div');
+          messageDiv.className = 'message other-chat';
+          messageDiv.innerText = `${data.nickname}: ${data.msg}`;
+          let chatContainer = document.querySelector('.chat-list');
+          chatContainer.appendChild(messageDiv);
+        } else if (from === 'personal') {
+          console.log('nick', data.nickname, myNick);
+          let messageDiv = document.createElement('div');
+          messageDiv.className = 'message secret-chat';
+          messageDiv.innerText = `개인DM-${data.nickname}: ${data.msg}`;
+          let chatContainer = document.querySelector('.chat-list');
+          chatContainer.appendChild(messageDiv);
         }
         // 채팅창 스크롤을 하단으로 이동
         let chatting = document.querySelector('.chat-list');
-         chatting.scrollTop = chatting.scrollHeight;
-      })
+        chatting.scrollTop = chatting.scrollHeight;
+      });
+
+      // 수업 코드
+      socket.on('newMessage', (data) => {
+        console.log(data);
+
+        // 내가 생성해야할 채팅 구조
+        // <div class="chat-list">
+        // <!-- 임시 대화 데이터 -->
+        // <div class="message my-chat">user1: msg1</div>
+        // <div class="message other-chat">user2: msg2</div> -->
+        // </div>
+
+        let chatList = document.querySelector('.chat-list');
+        let divChat = document.createElement('div');
+
+        if (myNick === data.nick) {
+          divChat.classList.add('my-chat');
+        } else {
+          divChat.classList.add('other-chat');
+        }
+
+        divChat.textContent = `${data.nick} : ${data.msg}`;
+        chatList.scrollTop = chatList.scrollHeight;
+      });
 
       // newMessage 이벤트를 받아서 {닉네임, 입력창}
       // 내가 보낸 메세지; 오른쪽
